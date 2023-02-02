@@ -10,6 +10,17 @@ using ExpenseTrackerServices.Services;
 [Route("expense_items")]
 public class ExpenseItemsController : ControllerBase
 {
+    /*
+    Exercise 3:
+    1. Create an actual model of a class representing one of your data. Make sure its under a namespace for "Models"
+    2. Refactor everything so it uses the model instance instead of Dictionary
+    3. Create a service (a. Interface b. ApplicationContext implementing service) that implements the following:
+        - GetAll()
+        - Save(Model object) where Model is your model
+        - Find(int id) returns a single instance of the model.
+        - Delete(int id)
+    4. Use the service in your controller and create test scripts to test the endpoint functionality
+    */
     private readonly IExpenseItemsService _expenseItemsService;
 
     public ExpenseItemsController(IExpenseItemsService expenseItemsService)
