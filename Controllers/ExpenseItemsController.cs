@@ -7,6 +7,26 @@ using System.Text.Json;
 [Route("expense_items")]
 public class ExpenseItemsController : ControllerBase
 {
+
+    [HttpPost("")]
+    public IActionResult Save([FromBody] object payload)
+    {
+        Dictionary<string, object> hash = JsonSerializer.Deserialize<Dictionary<string, object>>(payload.ToString());
+
+        int id = int.Parse(hash["id"].ToString());
+        string name = hash["name"].ToString();
+        float amount = float.Parse(hash["amount"].ToString());
+
+        Console.WriteLine("Id: " + id);
+        Console.WriteLine("Name: " + name);
+        Console.WriteLine("Amount: " + amount);
+
+        Dictionary<string, object> message = new Dictionary<string, object>();
+        message.Add("message", "Ok");
+
+        return Ok(message);
+    }
+
     // Requirement: Endpoint to return all expense items
     // URL: GET /expense_items
     [HttpGet("")]
