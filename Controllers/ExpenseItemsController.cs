@@ -19,7 +19,8 @@ public class ExpenseItemsController : ControllerBase
         - Save(Model object) where Model is your model
         - Find(int id) returns a single instance of the model.
         - Delete(int id)
-    4. Use the service in your controller and create test scripts to test the endpoint functionality
+    4. Create the necessary endpoint for Delete
+    5. Inject the service in your controller. Use the service in your controller and create test scripts to test the endpoint functionality
     */
     private readonly IExpenseItemsService _expenseItemsService;
 
