@@ -3,13 +3,18 @@ namespace ExpenseTrackerServices.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using ExpenseTrackerServices.Configuration;
+using ExpenseTrackerServices.Interfaces;
+using ExpenseTrackerServices.Services;
 
 [ApiController]
 [Route("expense_items")]
 public class ExpenseItemsController : ControllerBase
 {
-    public ExpenseItemsController()
+    private readonly IExpenseItemsService _expenseItemsService;
+
+    public ExpenseItemsController(IExpenseItemsService expenseItemsService)
     {
+        _expenseItemsService = expenseItemsService;
     }
 
     /*
@@ -37,7 +42,7 @@ public class ExpenseItemsController : ControllerBase
         newItem.Add("name", name);
         newItem.Add("amount", amount);
 
-        ApplicationContext.Instance.expenseItems.Add(newItem);
+        _expenseItemsService.Save(newItem);
 
         Dictionary<string, object> message = new Dictionary<string, object>();
         message.Add("message", "Ok");
@@ -60,8 +65,7 @@ public class ExpenseItemsController : ControllerBase
         */
         Dictionary<string, object> data = new Dictionary<string, object>();
 
-        Console.WriteLine("Instance: " + ApplicationContext.Instance);
-        data.Add("expense_items", ApplicationContext.Instance.expenseItems);
+        data.Add("expense_items", _expenseItemsService.GetAll());
 
         return Ok(data);
     }

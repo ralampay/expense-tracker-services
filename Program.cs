@@ -1,3 +1,6 @@
+using ExpenseTrackerServices.Interfaces;
+using ExpenseTrackerServices.Services;
+
 namespace ExpenseTrackerServices
 {
     public class Program
@@ -12,6 +15,9 @@ namespace ExpenseTrackerServices
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // Add services here
+            builder.Services.AddScoped<IExpenseItemsService, ExpenseItemsApplicationContextService>();
 
             var app = builder.Build();
 
