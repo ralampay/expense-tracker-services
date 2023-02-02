@@ -2,12 +2,23 @@ namespace ExpenseTrackerServices.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using ExpenseTrackerServices.Configuration;
 
 [ApiController]
 [Route("expense_items")]
 public class ExpenseItemsController : ControllerBase
 {
+    public ExpenseItemsController()
+    {
+    }
 
+    /*
+    Exercise 2:
+    1. Create your own POST endpoint to fetch an object from a curl request
+    2. Build the object in its native data type.
+    3. Add it to your "database"
+    4. Verify that it saved by requesting all data from your Index()
+    */
     [HttpPost("")]
     public IActionResult Save([FromBody] object payload)
     {
@@ -20,6 +31,13 @@ public class ExpenseItemsController : ControllerBase
         Console.WriteLine("Id: " + id);
         Console.WriteLine("Name: " + name);
         Console.WriteLine("Amount: " + amount);
+
+        Dictionary<string, object> newItem = new Dictionary<string, object>();
+        newItem.Add("id", id);
+        newItem.Add("name", name);
+        newItem.Add("amount", amount);
+
+        ApplicationContext.Instance.expenseItems.Add(newItem);
 
         Dictionary<string, object> message = new Dictionary<string, object>();
         message.Add("message", "Ok");
@@ -42,25 +60,10 @@ public class ExpenseItemsController : ControllerBase
         */
         Dictionary<string, object> data = new Dictionary<string, object>();
 
-        List<Dictionary<string, object>> expenseItems = new List<Dictionary<string, object>>();
+        Console.WriteLine("Instance: " + ApplicationContext.Instance);
+        data.Add("expense_items", ApplicationContext.Instance.expenseItems);
 
-        Dictionary<string, object> item1 = new Dictionary<string, object>();
-        item1.Add("id", 1);
-        item1.Add("name", "X");
-        item1.Add("amount", 100);
-
-        Dictionary<string, object> item2 = new Dictionary<string, object>();
-        item2.Add("id", 2);
-        item2.Add("name", "Y");
-        item2.Add("amount", 200);
-
-        expenseItems.Add(item1);
-        expenseItems.Add(item2);
-
-        data.Add("expense_items", expenseItems);
-        String payload = JsonSerializer.Serialize(data);
-
-        return Ok(payload);
+        return Ok(data);
     }
 
     // Requirement: Endpoint to return a single expense item based on id
