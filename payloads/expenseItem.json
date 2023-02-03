@@ -1,5 +1,4 @@
 {
     "id": 3,
-    "name": "New Expense",
-    "amount": 500.00
+    "amount": "Hello World!"
 }

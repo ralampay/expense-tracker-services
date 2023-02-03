@@ -5,6 +5,8 @@ using System.Text.Json;
 using ExpenseTrackerServices.Configuration;
 using ExpenseTrackerServices.Interfaces;
 using ExpenseTrackerServices.Services;
+using ExpenseTrackerServices.Operations;
+using ExpenseTrackerServices.Models;
 
 [ApiController]
 [Route("expense_items")]
@@ -41,25 +43,25 @@ public class ExpenseItemsController : ControllerBase
     {
         Dictionary<string, object> hash = JsonSerializer.Deserialize<Dictionary<string, object>>(payload.ToString());
 
-        int id = int.Parse(hash["id"].ToString());
-        string name = hash["name"].ToString();
-        float amount = float.Parse(hash["amount"].ToString());
+        ValidateSaveExpenseItems validator = new ValidateSaveExpenseItems(hash);
+        validator.Execute();
 
-        Console.WriteLine("Id: " + id);
-        Console.WriteLine("Name: " + name);
-        Console.WriteLine("Amount: " + amount);
+        if (validator.HasErrors())
+        {
+            return UnprocessableEntity(validator.Errors);
+        }
+        else
+        {
+            BuildExpenseItemFromHash builder = new BuildExpenseItemFromHash(hash);
+            ExpenseItem item = builder.Execute();
 
-        Dictionary<string, object> newItem = new Dictionary<string, object>();
-        newItem.Add("id", id);
-        newItem.Add("name", name);
-        newItem.Add("amount", amount);
+            _expenseItemsService.Save(item);
 
-        _expenseItemsService.Save(newItem);
+            Dictionary<string, object> message = new Dictionary<string, object>();
+            message.Add("message", "Ok");
 
-        Dictionary<string, object> message = new Dictionary<string, object>();
-        message.Add("message", "Ok");
-
-        return Ok(message);
+            return Ok(message);
+        }
     }
 
     // Requirement: Endpoint to return all expense items
