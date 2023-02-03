@@ -43,6 +43,12 @@ public class ExpenseItemsController : ControllerBase
     {
         Dictionary<string, object> hash = JsonSerializer.Deserialize<Dictionary<string, object>>(payload.ToString());
 
+        /*
+        Exercise 4:
+        1. Create your own validation class
+        2. For your save method, invoke the validator and return 422 if there's an error with the appropriate info
+        3. Else, do the normal Save()
+        */
         ValidateSaveExpenseItems validator = new ValidateSaveExpenseItems(hash);
         validator.Execute();
 
