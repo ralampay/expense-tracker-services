@@ -37,3 +37,13 @@ dotnet tool install --global dotnet-ef
 ```
 dotnet-ef --version
 ```
+
+## Exercises
+
+### Exercise 6
+
+1. Establish 2 tables for your project that are related to each other.
+2. Modify the models to establish the necessary relationships
+3. Create a migration file/s for the changes
+4. Create the necessary services for these models
+5. Prove via API that you can fetch one or the other related data.
