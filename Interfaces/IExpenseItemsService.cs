@@ -9,4 +9,6 @@ public interface IExpenseItemsService
     public void Save(Dictionary<string, object> hash);
 
     public void Save(ExpenseItem item);
+
+    public ExpenseItem FindById(int id);
 }

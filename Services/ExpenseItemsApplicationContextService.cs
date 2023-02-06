@@ -7,6 +7,11 @@ using ExpenseTrackerServices.Models;
 
 public class ExpenseItemsApplicationContextService : IExpenseItemsService
 {
+    public ExpenseItem FindById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<Dictionary<string, object>> GetAll()
     {
         return ApplicationContext.Instance.expenseItems;

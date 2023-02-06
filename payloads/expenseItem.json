@@ -1,4 +1,4 @@
 {
-    "id": 3,
-    "amount": "Hello World!"
+    "name": "Item 2",
+    "amount": 500.00
 }

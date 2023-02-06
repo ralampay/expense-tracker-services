@@ -37,8 +37,6 @@ public class ValidateSaveExpenseItems
 
     public void Execute()
     {
-        int id = int.Parse(payload["id"].ToString());
-
         // Name validation
         if(!payload.ContainsKey("name")) {
             Errors["name"].Add("name is required");
