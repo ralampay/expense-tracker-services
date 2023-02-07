@@ -25,6 +25,7 @@ namespace ExpenseTrackerServices
 
             // Add services here
             builder.Services.AddScoped<IExpenseItemsService, ExpenseItemsMSSQLService>();
+            builder.Services.AddScoped<ICategoriesService, CategoriesMSSQLService>();
 
             var app = builder.Build();
 

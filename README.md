@@ -14,6 +14,18 @@ curl http://localhost:5040/expense_items | jq
 curl -X POST -H "Content-Type: application/json" -d @payloads/expenseItem.json http://localhost:5040/expense_items | jq
 ```
 
+### Fetching all Categories
+
+```
+curl http://localhost:5040/categories | jq
+```
+
+### Saving a New Category from file `payloads/category.json`
+
+```
+curl -X POST -H "Content-Type: application/json" -d @payloads/category.json http://localhost:5040/categories | jq
+```
+
 ## Database Setup
 
 ### Add SQLServer Dependencies for EntityFramework
