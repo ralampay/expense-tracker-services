@@ -1,4 +1,5 @@
 {
     "name": "Item 2",
-    "amount": 500.00
+    "amount": 500.00,
+    "categoryId": 1
 }

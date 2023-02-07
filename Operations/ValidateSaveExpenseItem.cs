@@ -13,6 +13,7 @@ public class ValidateSaveExpenseItems
         this.Errors = new Dictionary<string, List<string>>();
         Errors.Add("name", new List<string>());
         Errors.Add("amount", new List<string>());
+        Errors.Add("categoryId", new List<string>());
     }
 
     public bool HasErrors()
@@ -24,6 +25,10 @@ public class ValidateSaveExpenseItems
         }
 
         if(Errors["amount"].Count > 0) {
+            ans = true;
+        }
+
+        if(Errors["categoryId"].Count > 0) {
             ans = true;
         }
 
@@ -55,6 +60,11 @@ public class ValidateSaveExpenseItems
             } catch(FormatException e) {
                 Errors["amount"].Add("invalid format for amount " + payload["amount"].ToString());
             }
+        }
+
+        // CategoryId validation
+        if(!payload.ContainsKey("categoryId")) {
+            Errors["categoryId"].Add("categoryId required");
         }
     }
 }

@@ -10,10 +10,12 @@ using ExpenseTrackerServices.Operations;
 public class ExpenseItemsMSSQLService : IExpenseItemsService
 {
     private readonly DataContext _dataContext;
+    private readonly ICategoriesService _categoriesService;
 
-    public ExpenseItemsMSSQLService(DataContext dataContext)
+    public ExpenseItemsMSSQLService(DataContext dataContext, ICategoriesService _categoriesService)
     {
         _dataContext = dataContext;
+        this._categoriesService = _categoriesService;
     }
 
     public ExpenseItem FindById(int id)
@@ -32,6 +34,7 @@ public class ExpenseItemsMSSQLService : IExpenseItemsService
             hash.Add("id", item.Id);
             hash.Add("name", item.Name);
             hash.Add("amountd", item.Amount);
+            hash.Add("categoryId", item.CategoryId);
 
             data.Add(hash);
         }
@@ -55,6 +58,7 @@ public class ExpenseItemsMSSQLService : IExpenseItemsService
             ExpenseItem temp = this.FindById(item.Id);
             temp.Name = item.Name;
             temp.Amount = item.Amount;
+            temp.Category = _categoriesService.FindById(item.CategoryId);
         }
 
         _dataContext.SaveChanges();

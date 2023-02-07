@@ -24,6 +24,8 @@ public class BuildExpenseItemFromHash
 
         item.Amount = float.Parse(hash["amount"].ToString());
 
+        item.CategoryId = int.Parse(hash["categoryId"].ToString());
+
         return item;
     }
 }
