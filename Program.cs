@@ -11,7 +11,14 @@ namespace ExpenseTrackerServices
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+            var corsConfigName = "CORS-Config";
+
             // Add services to the container.
+            builder.Services.AddCors(options => {
+                options.AddPolicy(name: corsConfigName, policy => {
+                    policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
 
             builder.Services.AddControllers();
 
@@ -35,6 +42,8 @@ namespace ExpenseTrackerServices
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(corsConfigName);
 
             app.UseHttpsRedirection();
 
